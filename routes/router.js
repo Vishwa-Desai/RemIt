@@ -30,6 +30,8 @@ route.get('/completed', auth, services.completedRoutes)
 
 route.get('/today', auth, services.todayRoutes)
 
+route.get('/Gen', auth, services.generalRoutes)
+
 route.post('/add_projects', auth, services.addProjectsRoutes);
 
 route.post('/invite_members', auth, services.inviteMembersRoutes);

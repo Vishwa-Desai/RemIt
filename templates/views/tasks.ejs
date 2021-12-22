@@ -14,7 +14,12 @@
     <link rel="shortcut icon" href="images/RemItT-removebg-preview.png" type="image/x-icon">
   </head>
   <body >
-    <h1 class="head_task">Tasks</h1>
+    <h1 class="head_task">
+      <% if(typeof project_name != 'undefined' && project_name) { %>
+        <%= project_name %> 
+        <% } %>
+        
+       Tasks</h1>
     <% tasks.forEach(function(task){ var curD=new Date(); var daysRemain =
     task.taskDate.getDate() - curD.getDate(); var priority=task.priority %>
     <form action="/completed_tasks"  method="post">

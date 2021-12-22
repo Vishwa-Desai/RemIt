@@ -202,7 +202,9 @@ exports.upcomingRoutes=async (req, res) => {
                 res.render("tasks", {
                     'user': req.user,
                     'tasks': data,
-                    'projects': ''
+                    'projects': '',
+                    'project_name': 'Upcoming'
+
                 });
             
             }
@@ -226,7 +228,9 @@ exports.completedRoutes=(req, res) => {
                 res.render("completed_tasks", {
                     'user': req.user,
                     'tasks': data,
-                    'projects': ''
+                    'projects': '',
+                    'project_name': 'Completed'
+
                 });
             }
             else {
@@ -254,7 +258,31 @@ exports.todayRoutes=async (req, res) => {
                 res.render("tasks", {
                     'user': req.user,
                     'tasks': data,
-                    'projects': ''
+                    'projects': '',
+                    'project_name': 'Today'
+                });
+            }
+            else {
+                console.log("Again error:(" + err);
+            }
+        })
+    }
+    catch (error) {
+        res.status(400).send("Oops error: " + error);
+    }
+}
+
+exports.generalRoutes=async (req, res) => {
+    try {
+        console.log("Reached to General task!!");
+        tasks.find({ projname: "general", usr: req.user }, function (err, data) {
+            if (data) {
+                console.log("General Task " + data);
+                res.render("tasks", {
+                    'user': req.user,
+                    'tasks': data,
+                    'projects': '',
+                    'project_name': 'General'
                 });
             }
             else {

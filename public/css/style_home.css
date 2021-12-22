@@ -346,7 +346,8 @@ header {
 #today,
 #upcoming,
 #completed,
-#inbox {
+#inbox,
+#Gen {
   text-decoration: none;
   color: black;
   font-weight: 700;
