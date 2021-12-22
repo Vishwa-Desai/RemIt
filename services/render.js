@@ -543,14 +543,17 @@ exports.priorityTaskRoutes =async (req, res) => {
     try {
         var priority = req.params.priority;
         console.log("Reached in priority task fetching - " + priority)
-        let priority_based_task = await tasks.find({ priority: priority, status: "Pending" });
+        if (priority == 'medium'){
+            priority = "mid"
+        }
+        let priority_based_task = await tasks.find({ priority: priority, status: "Pending", usr: req.user });
         if (priority == 'high') {
             priority = 'High'
         }
         else if (priority == 'low') {
             priority = 'Low'
         }
-        else {
+        else if(priority =='mid'){
             priority = 'Medium'
         }
         res.render("priority_wise_task", {
