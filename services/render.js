@@ -356,7 +356,7 @@ function inviteThroughMail(from,mail,group)
         to: mail.email,
         subject: 'Invite request for RemIt group ' + group,
         text: 'You have been invited to join group ' + group + ' by ' + from,
-        html:'<p> In order to be a member of a group, if you want to accept then click on accept button or else ignore this mail.</p><br><form action="http://localhost:3000/accepted_req" method="POST"><input type="hidden" value="' + group + '" name="group"><input type="hidden" value="' + mail + '" name="friend"><input type="submit" value="Accept"></form>'   }
+        html:'<p> In order to be a member of a group, if you want to accept then click on accept button or else ignore this mail.</p><br><form action="https://https://remit-siskv.herokuapp.com/accepted_req" method="POST"><input type="hidden" value="' + group + '" name="group"><input type="hidden" value="' + mail + '" name="friend"><input type="submit" value="Accept"></form>'   }
 
     transport.sendMail(mailOptions,function(err,data){
         if(err){
