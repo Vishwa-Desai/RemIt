@@ -10,7 +10,7 @@ route.get('/pomodoro', services.pomodoroRoutes);
 
 route.get('/dashboard',auth,services.dashboardRoutes )
 
-route.get('/del_projects/:id', auth,services.deleteProjectRoutes)
+route.get('/del_projects/:id', auth,services.deleteProjectsRoutes)
 
 route.get('/fetch_task', auth, services.fetchTasksRoutes)
 

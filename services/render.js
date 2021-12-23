@@ -191,11 +191,13 @@ exports.inboxRoutes=async (req, res) => {
     res.redirect("tasks");
 }
 
+var end1 = new Date();
+end1.setHours(23, 59, 59, 999);
 exports.upcomingRoutes=async (req, res) => {
     try {
         console.log("Reached to upcoming task!!");
         // res.render("tasks")
-        tasks.find({ taskDate: { $gte: new Date() }, usr: req.user,status: "Pending"}, function (err, data) {
+        tasks.find({ taskDate: { $gt: end1 }, usr: req.user,status: "Pending"}, function (err, data) {
             if (data) {
                 console.log("Upcoming Data " + data);
                 
@@ -275,7 +277,7 @@ exports.todayRoutes=async (req, res) => {
 exports.generalRoutes=async (req, res) => {
     try {
         console.log("Reached to General task!!");
-        tasks.find({ projname: "general", usr: req.user }, function (err, data) {
+        tasks.find({ projname: "general", usr: req.user, status:"Pending" }, function (err, data) {
             if (data) {
                 console.log("General Task " + data);
                 res.render("tasks", {
@@ -331,7 +333,7 @@ exports.inviteMembersRoutes=async (req, res) => {
             })
         }
         else{
-            res.status(200).send("No such user:(");
+            res.send('No such user:(');
         }
         // const new_task = new projs({
         //     name: req.body.name,
@@ -354,7 +356,7 @@ function inviteThroughMail(from,mail,group)
         to: mail.email,
         subject: 'Invite request for RemIt group ' + group,
         text: 'You have been invited to join group ' + group + ' by ' + from,
-        html:'<p> In order to be a member of a group, if you want to accept then click on accept button or else ignore this mail.</p><br><form action="https://remit-siskv.herokuapp.com/accepted_req" method="POST"><input type="hidden" value="' + group + '" name="group"><input type="hidden" value="' + mail + '" name="friend"><input type="submit" value="Accept"></form>'   }
+        html:'<p> In order to be a member of a group, if you want to accept then click on accept button or else ignore this mail.</p><br><form action="http://localhost:3000/accepted_req" method="POST"><input type="hidden" value="' + group + '" name="group"><input type="hidden" value="' + mail + '" name="friend"><input type="submit" value="Accept"></form>'   }
 
     transport.sendMail(mailOptions,function(err,data){
         if(err){
@@ -595,6 +597,7 @@ exports.priorityTaskRoutes =async (req, res) => {
 }
 
 exports.deleteProjectsRoutes =async (req, res) => {
+    console.log("-------------Reached inside delete project------------")
     const id = req.params.id;
     var proj = await projs.findById({ _id: id });
     var projname = proj.name;

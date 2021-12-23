@@ -21,16 +21,7 @@
     var priority=task.priority; %>
     <form action="/completed_task"  method="post">
     <div class="item">
-      <div class="round">
-        <input
-          type="checkbox"
-          name="checkbox"
-          value="<%=task._id %>"
-          id="<%=task._id %>"
-          onchange="this.form.submit()"
-        />
-        <label for="<%=task._id %>"></label>
-      </div>
+      
       <p id="check-me">
         <%= task.taskname %> 
         <div id="circle-blue"></div>
@@ -46,7 +37,10 @@
                 <% } %>
                 <p id="pl"><%= task.priority %> &nbsp;&nbsp;&nbsp;&nbsp;
                   <p id="di">  <%= task.taskDate.toDateString() %> &nbsp;&nbsp;&nbsp;&nbsp; 
-                  <p id="rd">  <%= task.completeTime.toDateString() %>
+                  <p id="rd"> 
+                    <% if(typeof completeTime != 'undefined' && completeTime) { %>
+                  <%= task.completeTime.toDateString() %>
+                  <% } %>
                  &nbsp;&nbsp;&nbsp;&nbsp;
         <a
           href="/del_tasks/<%= task._id %>"
